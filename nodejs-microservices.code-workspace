@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../_Resources"
+    },
+    {
+      "path": "./shopper"
+    }
+  ],
+  "settings": {
+    "files.autoSave": "onFocusChange"
+  }
+}
