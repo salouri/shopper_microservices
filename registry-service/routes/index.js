@@ -6,7 +6,7 @@ const registry = new Registry();
 
 // Define your RESTful routes here
 router.put(
-  "/registery/:servicename/:serviceversion/:serviceport",
+  "/registry/:servicename/:serviceversion/:serviceport",
   (req, res, next) => {
     const { servicename, serviceversion, serviceport } = req.params;
     let serviceIP = req.socket.remoteAddress;
@@ -25,7 +25,7 @@ router.put(
 );
 
 router.delete(
-  "/registery/:servicename/:serviceversion/:serviceport",
+  "/registry/:servicename/:serviceversion/:serviceport",
   (req, res, next) => {
     const { servicename, serviceversion, serviceport } = req.params;
     let serviceIP = req.socket.remoteAddress;
