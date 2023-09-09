@@ -10,6 +10,20 @@
       "name": "Launch Registry",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/registry-service/bin/start.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Shopper",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/shopper-service/bin/start.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Catalog",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/catalog-service/bin/start.js"
     }
   ]
 }

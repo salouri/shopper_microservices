@@ -26,7 +26,7 @@ class ServiceRegistry {
   static async callService(servicename, requestOptions) {
     const { ip, port } = await this.getService(servicename);
     // eslint-disable-next-line no-param-reassign
-    requestOptions.url = `http://${ip}:${port}/${requestOptions.url}`;
+    requestOptions.url = `http://${ip}:${port}${requestOptions.url}`;
     try {
       const response = axios.get(
         `${config.registry.url}/registry/${servicename}/${config.registry.version}`
