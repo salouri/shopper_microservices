@@ -3,11 +3,20 @@ const CatalogService = require("../lib/CatalogService");
 
 const router = express.Router();
 
+// Define a filter for responses
+function filterResponse(itemObj) {
+  return {
+    id: itemObj.id,
+    price: itemObj.price,
+    sku: itemObj.sku,
+    name: itemObj.name
+  };
+}
 // Define your RESTful routes here
 router.get("/items", async (req, res) => {
   try {
     const items = await CatalogService.getAll();
-    return res.json(items);
+    return res.json(items.map((item) => filterResponse(item)));
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
@@ -20,7 +29,7 @@ router.get("/items/:id", async (req, res) => {
     if (!item) {
       return res.status(404).json({ error: "Item not found." });
     }
-    return res.json(item);
+    return res.json(filterResponse(item));
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
@@ -43,7 +52,7 @@ router.put("/items/:id", async (req, res) => {
     if (!item) {
       return res.status(404).json({ error: "Item not found." });
     }
-    return res.json(item);
+    return res.json(filterResponse(item));
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal server error" });
