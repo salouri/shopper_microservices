@@ -42,7 +42,7 @@ router.delete(
   }
 );
 
-router.get("/registery/:servicename/:serviceversion", (req, res, next) => {
+router.get("/registry/:servicename/:serviceversion", (req, res, next) => {
   const { servicename, serviceversion } = req.params;
 
   const result = registry.find(servicename, serviceversion);
