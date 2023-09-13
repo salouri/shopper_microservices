@@ -2,17 +2,17 @@ const axios = require("axios");
 const config = require("../config");
 
 class ServiceClient {
+  // getService gets the ip and port from service's name and version
   static async getService(servicename) {
     try {
-      const response = await axios.get(
-        `${config.registry.url}/registry/${servicename}/${config.registry.version}`
-      );
-      if (!response.data.ip) {
+      const url = `${config.registry.url}/registry/${servicename}/${config.registry.version}`;
+      const response = await axios.get(url);
+      if (!response.data[0].ip) {
         throw new Error(
           `Could not find ${servicename}:${config.registry.version}`
         );
       }
-      return response.data;
+      return response.data[0];
     } catch (error) {
       const errorMsg =
         (error.response &&
@@ -30,11 +30,6 @@ class ServiceClient {
     requestOptions.url = `http://${ip}:${port}${requestOptions.url}`;
     try {
       const serviceInfo = await axios(requestOptions);
-      if (!serviceInfo.data.ip) {
-        throw new Error(
-          `Could not find ${servicename}:${config.registry.version}`
-        );
-      }
       return serviceInfo.data;
     } catch (error) {
       const errorMsg =
