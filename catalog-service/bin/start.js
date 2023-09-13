@@ -33,23 +33,29 @@ server.on("listening", () => {
   console.info(
     `${config.serviceName}:${config.serviceVersion} listening on ${bind}`
   );
-  const register = async () =>
-    axios
-      .put(
+  const register = async () => {
+    try {
+      await axios.put(
         `http://127.0.0.1:3080/registry/${config.serviceName}/${
           config.serviceVersion
         }/${server.address().port}`
-      )
-      .catch((err) => console.error(err));
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
-  const unregister = async () =>
-    axios
-      .delete(
+  const unregister = async () => {
+    try {
+      await axios.delete(
         `http://127.0.0.1:3080/registry/${config.serviceName}/${
           config.serviceVersion
         }/${server.address().port}`
-      )
-      .catch((err) => console.error(err));
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
 
   const cleanup = async (intervalID) => {
     clearInterval(intervalID);
