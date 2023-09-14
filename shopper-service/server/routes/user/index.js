@@ -6,7 +6,7 @@ const UserServiceClient = require("../../services/UserServiceClient");
 const router = express.Router();
 
 // Route to render all items in the catalog
-router.post("/users/authenticate", async (req, res) => {
+router.post("/login", async (req, res) => {
   const authUser = await UserServiceClient.authenticate(
     req.body.email,
     req.body.password
