@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+const axios = require("axios");
 
 /* eslint-disable import/order */
 
@@ -35,6 +36,52 @@ server.on("listening", () => {
   console.info(
     `${config.serviceName}:${config.serviceVersion} listening on ${bind}`
   );
+
+  const register = async () => {
+    try {
+      await axios.put(
+        `http://127.0.0.1:3080/registry/${config.serviceName}/${
+          config.serviceVersion
+        }/${server.address().port}`
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const unregister = async () => {
+    try {
+      await axios.delete(
+        `http://127.0.0.1:3080/registry/${config.serviceName}/${
+          config.serviceVersion
+        }/${server.address().port}`
+      );
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const cleanup = async (intervalID) => {
+    clearInterval(intervalID);
+    await unregister();
+  };
+
+  register();
+  const intervalId = setInterval(register, 10000);
+
+  process.on("uncaughtException", async () => {
+    await cleanup(intervalId);
+    process.exit(0);
+  });
+
+  process.on("SIGTERM", async () => {
+    await cleanup(intervalId);
+    process.exit(0);
+  });
+  process.on("SIGINT", async () => {
+    await cleanup(intervalId);
+    process.exit(0);
+  });
 });
 
 // Connect to Redis and MongoDB before starting the server
