@@ -3,10 +3,9 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const routes = require("./routes");
-const config = require("./config");
 
 // Middleware to parse JSON request bodies
-app.use(express.json()); 
+app.use(express.json());
 
 // Middleware to log HTTP requests
 app.use(morgan("tiny"));
