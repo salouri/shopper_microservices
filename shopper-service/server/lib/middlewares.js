@@ -1,5 +1,5 @@
 const UserService = require("../services/UserService");
-const CartService = require("../services/CartService");
+const CartServiceClient = require("../services/CartServiceClient");
 const config = require("../config");
 
 module.exports.assignTemplateVariables = async (req, res, next) => {
@@ -16,7 +16,7 @@ module.exports.assignTemplateVariables = async (req, res, next) => {
       const { userId } = req.session;
 
       let cartCount = 0;
-      const cartContents = await CartService.getAll(userId);
+      const cartContents = await CartServiceClient.getAll(userId);
       if (cartContents) {
         Object.keys(cartContents).forEach((itemId) => {
           cartCount += parseInt(cartContents[itemId], 10);
