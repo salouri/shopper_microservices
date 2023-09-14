@@ -1,7 +1,7 @@
 // Required modules and services are imported
 const express = require("express");
-const CatalogClient = require("../../services/CatalogClient");
-const CartService = require("../../services/CartService");
+const CatalogClient = require("../../services/CatalogServiceClient");
+const CartService = require("../../services/CartServiceClient");
 
 // Express router is instantiated
 const router = express.Router();

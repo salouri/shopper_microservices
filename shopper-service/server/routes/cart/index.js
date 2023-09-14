@@ -1,9 +1,9 @@
 // Import required modules
 const express = require("express");
 
-const CatalogClient = require("../../services/CatalogClient");
-const CartService = require("../../services/CartService");
-const OrderService = require("../../services/OrderService");
+const CatalogClient = require("../../services/CatalogServiceClient");
+const CartService = require("../../services/CartServiceClient");
+const OrderService = require("../../services/OrderServiceClient");
 
 // Instantiate a new Express router
 const router = express.Router();
@@ -63,7 +63,7 @@ router.get("/remove/:itemId", async (req, res) => {
     // Show a success message
     req.session.messages.push({
       type: "success",
-      text: "The item was removed from the your cart"
+      text: "The item was removed from your cart"
     });
   } catch (err) {
     // Show an error message and log the error

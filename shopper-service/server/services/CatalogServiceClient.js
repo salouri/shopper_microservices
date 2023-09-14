@@ -1,9 +1,10 @@
-/** @module CatalogClient */
 const ServiceClient = require("./ServiceClient");
+
+/** @module CatalogClient */
 /**
  * client class for interacting with the  Catalog service
  */
-class CatalogClient {
+class CatalogServiceClient {
   /**
    * Get all items from the database, sorted in descending order by creation time
    * @returns {Promise<Array>} - A promise that resolves to an array of Items
@@ -97,4 +98,4 @@ class CatalogClient {
   }
 }
 
-module.exports = CatalogClient;
+module.exports = CatalogServiceClient;
