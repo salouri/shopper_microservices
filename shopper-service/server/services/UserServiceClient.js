@@ -1,18 +1,25 @@
 /** @module UserService */
-
-// Import the User model from mongoose
-const UserModel = require("../models/User");
+const ServiceClient = require("./ServiceClient");
 
 /**
  * Service class for managing users
  */
-class UserService {
+class UserServiceClient {
   /**
    * Get all users
    * @returns {Promise<Array>} - A promise that resolves to an array of users
    */
   static async getAll() {
-    return UserModel.find({}).sort({ createdAt: -1 });
+    try {
+      const result = await ServiceClient.callService("user-service", {
+        method: "get",
+        url: "/users"
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 
   /**
@@ -22,7 +29,16 @@ class UserService {
    * null if no user was found
    */
   static async getOne(userId) {
-    return UserModel.findById(userId).exec();
+    try {
+      const result = await ServiceClient.callService("user-service", {
+        method: "get",
+        url: `/users/${userId}`
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 
   /**
@@ -31,8 +47,17 @@ class UserService {
    * @returns {Promise<Object>} - A promise that resolves to the new user
    */
   static async create(data) {
-    const user = new UserModel(data);
-    return user.save();
+    try {
+      const result = await ServiceClient.callService("user-service", {
+        method: "post",
+        url: "/users",
+        data
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 
   /**
@@ -42,11 +67,17 @@ class UserService {
    * @returns {Promise<Object>} - A promise that either returns the authenticated user or false
    */
   static async authenticate(email, password) {
-    const maybeUser = await UserModel.findOne({ email });
-    if (!maybeUser) return false;
-    const validPassword = await maybeUser.comparePassword(password);
-    if (!validPassword) return false;
-    return maybeUser;
+    try {
+      const result = await ServiceClient.callService("user-service", {
+        method: "post",
+        url: "/users/authenticate",
+        data: { email, password }
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 
   /**
@@ -56,17 +87,17 @@ class UserService {
    * @returns {Promise<Object>} - A promise that resolves to the updated user
    */
   static async update(userId, data) {
-    // Fetch the user first
-    const user = await UserModel.findById(userId);
-    user.email = data.email;
-    user.isAdmin = data.isAdmin;
-
-    // Only set the password if it was modified
-    if (data.password) {
-      user.password = data.password;
+    try {
+      const result = await ServiceClient.callService("user-service", {
+        method: "put",
+        url: `/users/${userId}`,
+        data
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
     }
-
-    return user.save();
   }
 
   /**
@@ -80,4 +111,4 @@ class UserService {
   }
 }
 
-module.exports = UserService;
+module.exports = UserServiceClient;

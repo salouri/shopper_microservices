@@ -1,6 +1,6 @@
 // Import necessary modules
 const express = require("express");
-const UserService = require("../../../services/UserService");
+const UserServiceClient = require("../../../services/UserServiceClient");
 
 // Create a new Express router
 const router = express.Router();
@@ -8,12 +8,12 @@ const router = express.Router();
 // Route for getting all users or a specific user by ID
 router.get("/:userId?", async (req, res, next) => {
   try {
-    const users = await UserService.getAll(); // Get all users
+    const users = await UserServiceClient.getAll(); // Get all users
 
     let user = null;
     // The optional userId param was passed
     if (req.params.userId) {
-      user = await UserService.getOne(req.params.userId); // Get specific user
+      user = await UserServiceClient.getOne(req.params.userId); // Get specific user
     }
 
     // Render the user page with all users or the specific user
@@ -45,7 +45,7 @@ router.post("/", async (req, res) => {
   try {
     // Create or update a user
     if (!req.body.userId) {
-      await UserService.create({ email, password, isAdmin }); // Create new user
+      await UserServiceClient.create({ email, password, isAdmin }); // Create new user
     } else {
       const userData = {
         email,
@@ -58,7 +58,7 @@ router.post("/", async (req, res) => {
         userData.password = password;
       }
 
-      await UserService.update(req.body.userId, userData); // Update user
+      await UserServiceClient.update(req.body.userId, userData); // Update user
     }
 
     req.session.messages.push({
@@ -84,7 +84,7 @@ router.post("/", async (req, res) => {
 // Route for deleting a user
 router.get("/delete/:userId", async (req, res) => {
   try {
-    await UserService.remove(req.params.userId); // Remove the user
+    await UserServiceClient.remove(req.params.userId); // Remove the user
   } catch (err) {
     // Log the error and redirect to the user page
     req.session.messages.push({

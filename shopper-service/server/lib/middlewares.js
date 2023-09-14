@@ -1,4 +1,4 @@
-const UserService = require("../services/UserService");
+const UserServiceClient = require("../services/UserServiceClient");
 const CartServiceClient = require("../services/CartServiceClient");
 const config = require("../config");
 
@@ -12,7 +12,9 @@ module.exports.assignTemplateVariables = async (req, res, next) => {
   // Fetch user and cart info if user is logged in
   if (req.session.userId) {
     try {
-      res.locals.currentUser = await UserService.getOne(req.session.userId);
+      res.locals.currentUser = await UserServiceClient.getOne(
+        req.session.userId
+      );
       const { userId } = req.session;
 
       let cartCount = 0;
