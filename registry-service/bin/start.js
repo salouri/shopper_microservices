@@ -33,6 +33,17 @@ server.on("listening", () => {
   console.info(
     `${config.serviceName}:${config.serviceVersion} listening on ${bind}`
   );
+
+  process.on("uncaughtException", async () => {
+    process.exit(0);
+  });
+
+  process.on("SIGTERM", async () => {
+    process.exit(0);
+  });
+  process.on("SIGINT", async () => {
+    process.exit(0);
+  });
 });
 
 // Start the server
