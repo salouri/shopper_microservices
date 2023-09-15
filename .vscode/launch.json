@@ -7,23 +7,37 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Registry",
+      "name": "Launch Registry Service",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/registry-service/bin/start.js"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Shopper",
+      "name": "Launch Shopper Service",
       "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/shopper-service/bin/start.js"
+      "program": "${workspaceFolder}/shopper-service/server/bin/start.js"
     },
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Catalog",
+      "name": "Launch Catalog Service",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/catalog-service/bin/start.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch User Service",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/user-service/bin/start.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Cart Service",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/cart-service/bin/start.js"
     }
   ]
 }
