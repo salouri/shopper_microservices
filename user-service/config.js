@@ -11,5 +11,9 @@ module.exports = {
       url: "redis://localhost:7379"
     },
     client: null
+  },
+  jwt: {
+    secret: "my secret key", // same key must be used in other services
+    expiresIn: 60 * 60 * 24
   }
 };

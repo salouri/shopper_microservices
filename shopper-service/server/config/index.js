@@ -27,5 +27,8 @@ module.exports = {
     },
     // Placeholder for the Redis client, to be connected elsewhere
     client: null
+  },
+  jwt: {
+    secret: "my secret key" // must match the secret key in user service
   }
 };
