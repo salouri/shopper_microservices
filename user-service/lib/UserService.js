@@ -44,7 +44,9 @@ class UserService {
   static async authenticate(email, password) {
     const maybeUser = await UserModel.findOne({ email });
     if (!maybeUser) return false;
-    const validPassword = await maybeUser.comparePassword(password);
+    const validPassword = await maybeUser.comparePassword(
+      String(password).trim()
+    );
     if (!validPassword) return false;
     return maybeUser;
   }

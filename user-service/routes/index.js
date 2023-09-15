@@ -1,5 +1,7 @@
 // Required modules and services are imported
 const express = require("express");
+const jwt = require("jsonwebtoken");
+const config = require("../config");
 const UserService = require("../lib/UserService");
 
 // Express router is instantiated
@@ -57,12 +59,17 @@ router.put("/users/:id", async (req, res) => {
 // Route to authenticate user
 router.post("/users/authenticate", async (req, res) => {
   try {
-    const authUser = await UserService.authenticate(
+    let authUser = await UserService.authenticate(
       req.body.email,
       req.body.password
     );
     if (!authUser) return res.status(403).send("User not found");
-    return res.json(filterResponse(authUser));
+
+    authUser = filterResponse(authUser);
+    const token = jwt.sign(authUser, config.jwt.secret, {
+      expiresIn: config.jwt.expiresIn
+    });
+    return res.json({ token });
   } catch (error) {
     console.error(error);
     return res.status(500).send("General error");
