@@ -1,6 +1,7 @@
 // Import necessary modules
 const express = require("express");
 const UserServiceClient = require("../../../services/UserServiceClient");
+const { requireAdmin } = require("../../../lib/middlewares");
 
 // Create a new Express router
 const router = express.Router();
@@ -82,7 +83,7 @@ router.post("/", async (req, res) => {
 });
 
 // Route for deleting a user
-router.get("/delete/:userId", async (req, res) => {
+router.get("/delete/:userId", requireAdmin, async (req, res) => {
   try {
     await UserServiceClient.remove(req.params.userId); // Remove the user
   } catch (err) {

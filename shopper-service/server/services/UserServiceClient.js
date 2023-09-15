@@ -115,7 +115,7 @@ class UserServiceClient {
       return result;
     } catch (error) {
       console.error(error);
-      return [];
+      throw new Error(error);
     }
   }
 }
