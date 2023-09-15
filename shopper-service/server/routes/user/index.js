@@ -7,25 +7,34 @@ const router = express.Router();
 
 // Route to render all items in the catalog
 router.post("/login", async (req, res) => {
-  const authUser = await UserServiceClient.authenticate(
-    req.body.email,
-    req.body.password
-  );
+  try {
+    const result = await UserServiceClient.authenticate(
+      req.body.email,
+      req.body.password
+    );
 
-  if (authUser && authUser.id) {
-    req.session.userId = authUser.id;
+    if (result && result.token) {
+      req.session.token = result.token;
+      req.session.messages.push({
+        type: "success",
+        text: "You have been logged in!"
+      });
+      return res.redirect("/");
+    }
+    // if (!authUser)
     req.session.messages.push({
-      type: "success",
-      text: "You have been logged in!"
+      type: "danger",
+      text: "Invalid email address or password!"
+    });
+    return res.redirect("/");
+  } catch (err) {
+    console.error(err);
+    req.session.messages.push({
+      type: "danger",
+      text: "error!"
     });
     return res.redirect("/");
   }
-  // if (!authUser)
-  req.session.messages.push({
-    type: "danger",
-    text: "Invalid email address or password!"
-  });
-  return res.redirect("/");
 });
 
 router.get("/logout", (req, res) => {

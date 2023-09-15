@@ -1,4 +1,4 @@
-const UserServiceClient = require("../services/UserServiceClient");
+const jwt = require("jsonwebtoken");
 const CartServiceClient = require("../services/CartServiceClient");
 const config = require("../config");
 
@@ -10,21 +10,27 @@ module.exports.assignTemplateVariables = async (req, res, next) => {
   res.locals.messages = req.session.messages;
 
   // Fetch user and cart info if user is logged in
-  if (req.session.userId) {
+  if (req.session.token) {
     try {
-      res.locals.currentUser = await UserServiceClient.getOne(
-        req.session.userId
-      );
-      const { userId } = req.session;
-
-      let cartCount = 0;
-      const cartContents = await CartServiceClient.getAll(userId);
-      if (cartContents) {
-        Object.keys(cartContents).forEach((itemId) => {
-          cartCount += parseInt(cartContents[itemId], 10);
-        });
+      try {
+        res.locals.currentUser = jwt.verify(
+          req.session.token,
+          config.jwt.secret
+        );
+      } catch (err) {
+        req.session.token = null;
       }
-      res.locals.cartCount = cartCount;
+      if (res.locals.currentUser) {
+        const userId = res.locals.currentUser?.id;
+        let cartCount = 0;
+        const cartContents = await CartServiceClient.getAll(userId);
+        if (cartContents) {
+          Object.keys(cartContents).forEach((itemId) => {
+            cartCount += parseInt(cartContents[itemId], 10);
+          });
+        }
+        res.locals.cartCount = cartCount;
+      }
     } catch (error) {
       return next(error);
     }
