@@ -107,7 +107,16 @@ class UserServiceClient {
    * delete operation
    */
   static async remove(userId) {
-    return UserModel.deleteOne({ _id: userId }).exec();
+    try {
+      const result = await ServiceClient.callService("user-service", {
+        method: "delete",
+        url: `/users/${userId}`
+      });
+      return result;
+    } catch (error) {
+      console.error(error);
+      return [];
+    }
   }
 }
 
