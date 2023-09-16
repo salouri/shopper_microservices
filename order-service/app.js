@@ -6,6 +6,7 @@ const OrderService = require("./lib/OrderService");
 const routes = require("./routes");
 
 const app = express();
+app.use(compression());
 // Middleware to parse JSON request bodies
 app.use(express.json());
 

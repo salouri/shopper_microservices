@@ -1,6 +1,7 @@
 const express = require("express");
 
 const app = express();
+app.use(compression());
 const morgan = require("morgan");
 const routes = require("./routes");
 

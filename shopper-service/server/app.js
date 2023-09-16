@@ -11,6 +11,7 @@ const config = require("./config");
 
 // Initialize express application
 const app = express();
+app.use(compression());
 
 // Set up view engine (Pug in this case) and views directory
 app.set("view engine", "pug");
