@@ -7,8 +7,12 @@ const morgan = require("morgan");
 const RedisStore = require("connect-redis").default;
 const { assignTemplateVariables } = require("./lib/middlewares");
 const routeHandler = require("./routes");
-
 const config = require("./config");
+const connectToRedis = require("./lib/redisConnection"); // Function to connect to Redis
+
+// Prepare the Redis client to connect to later
+// This has to come before `app` is initiated because sessions depend on it
+config.redis.client = connectToRedis(config.redis.options);
 
 // Initialize express application
 const app = express();

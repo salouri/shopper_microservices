@@ -1,11 +1,11 @@
 {
-  "name": "shopper",
+  "name": "shopper-service",
   "version": "0.0.0",
   "private": true,
   "author": "Daniel Khan <daniel@khan.io>",
   "scripts": {
-    "start": "NODE_ENV=production node ./server/bin/start",
-    "dev": "nodemon ./server/bin/start"
+    "start": "NODE_ENV=production node ./server/bin/start | bunyan",
+    "dev": "nodemon ./server/bin/start | bunyan"
   },
   "dependencies": {
     "@opentelemetry/api": "^1.4.1",
