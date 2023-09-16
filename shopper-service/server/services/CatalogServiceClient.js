@@ -1,4 +1,7 @@
 const ServiceClient = require("./ServiceClient");
+const config = require("../config");
+
+const log = config.log();
 
 let allItemsCache = [];
 /** @module CatalogServiceClient */
@@ -19,7 +22,7 @@ class CatalogServiceClient {
       allItemsCache = result;
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return allItemsCache;
     }
   }
@@ -37,7 +40,7 @@ class CatalogServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return null;
     }
   }
@@ -57,7 +60,7 @@ class CatalogServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return null;
     }
   }
@@ -78,7 +81,7 @@ class CatalogServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return null;
     }
   }
@@ -97,7 +100,7 @@ class CatalogServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return null;
     }
   }

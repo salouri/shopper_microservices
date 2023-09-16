@@ -1,7 +1,9 @@
 // Import necessary modules
 const express = require("express");
 const OrderService = require("../../../services/OrderServiceClient");
+const config = require("../../../config");
 
+const log = config.log();
 // Create a new Express router
 const router = express.Router();
 
@@ -20,7 +22,7 @@ router.get("/", async (req, res, next) => {
       text: "There was an error fetching the orders"
     });
     // Log the error and forward it to the error handler
-    console.error(err);
+    log.error(err);
     return next(err);
   }
 });
@@ -46,7 +48,7 @@ router.get("/setshipped/:orderId", async (req, res) => {
       text: "There was an error updating the order"
     });
     // Log the error and redirect back to the admin orders page
-    console.error(err);
+    log.error(err);
     return res.redirect("/admin/orders");
   }
 });

@@ -2,6 +2,8 @@ const jwt = require("jsonwebtoken");
 const CartServiceClient = require("../services/CartServiceClient");
 const config = require("../config");
 
+const log = config.log();
+
 module.exports.assignTemplateVariables = async (req, res, next) => {
   res.locals.applicationName = config.applicationName;
 
@@ -32,7 +34,7 @@ module.exports.assignTemplateVariables = async (req, res, next) => {
           }
           res.locals.cartCount = cartCount;
         } catch (err) {
-          console.error(err);
+          log.error(err);
         }
       }
     } catch (error) {

@@ -1,5 +1,7 @@
-const config = require("../config");
 const ServiceClient = require("./ServiceClient");
+const config = require("../config");
+
+const log = config.log();
 /** @moduleCartClient */
 /**
  * client class for interacting with the  Cart service
@@ -25,7 +27,7 @@ class CartServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }
@@ -43,7 +45,7 @@ class CartServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return null;
     }
   }
@@ -63,7 +65,7 @@ class CartServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       throw new Error(error);
     }
   }
@@ -81,7 +83,7 @@ class CartServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }

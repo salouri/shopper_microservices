@@ -1,11 +1,13 @@
 #!/usr/bin/env node
 const axios = require("axios");
+const config = require("../config"); // Configuration settings
 
 /* eslint-disable import/order */
 
 // Import necessary dependencies
 // HTTP server functionality
-const config = require("../config"); // Configuration settings
+
+const log = config.log();
 
 // eslint-disable-next-line no-unused-vars
 const tracing = require("../lib/tracing")(
@@ -33,7 +35,7 @@ const server = http.createServer(app);
 server.on("listening", () => {
   const addr = server.address();
   const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
-  console.info(
+  log.info(
     `${config.serviceName}:${config.serviceVersion} listening on ${bind}`
   );
 
@@ -45,7 +47,7 @@ server.on("listening", () => {
         }/${server.address().port}`
       );
     } catch (error) {
-      console.error(error.message);
+      log.error(error.message);
     }
   };
 
@@ -57,7 +59,7 @@ server.on("listening", () => {
         }/${server.address().port}`
       );
     } catch (error) {
-      console.error(error.message);
+      log.error(error.message);
     }
   };
 

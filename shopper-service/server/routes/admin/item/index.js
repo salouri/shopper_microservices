@@ -1,7 +1,9 @@
 // Import necessary modules
 const express = require("express");
 const CatalogServiceClient = require("../../../services/CatalogServiceClient");
+const config = require("../../../config");
 
+const log = config.log();
 // Create a new Express router
 const router = express.Router();
 
@@ -73,7 +75,7 @@ router.post("/", async (req, res) => {
       type: "danger",
       text: "There was an error while saving the item!"
     });
-    console.error(err);
+    log.error(err);
     return res.redirect("/admin/item");
   }
 });
@@ -96,7 +98,7 @@ router.get("/delete/:itemId", async (req, res) => {
       type: "danger",
       text: "There was an error while deleting the item!"
     });
-    console.error(err);
+    log.error(err);
     return res.redirect("/admin/item");
   }
 });

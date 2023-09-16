@@ -4,7 +4,9 @@ const express = require("express");
 const CatalogServiceClient = require("../../services/CatalogServiceClient");
 const CartServiceClient = require("../../services/CartServiceClient");
 const OrderServiceClient = require("../../services/OrderServiceClient");
+const config = require("../../config");
 
+const log = config.log();
 // Instantiate a new Express router
 const router = express.Router();
 
@@ -71,7 +73,7 @@ router.get("/remove/:itemId", async (req, res) => {
       type: "danger",
       text: "There was an error removing the item from your cart"
     });
-    console.error(err);
+    log.error(err);
     return res.redirect("/cart");
   }
 
@@ -137,13 +139,13 @@ router.get("/buy", async (req, res) => {
       })
       .catch((error) => {
         // Log any errors
-        console.error("Error occurred while running tasks:", error);
+        log.error("Error occurred while running tasks:", error);
       });
 
     // Redirect the user to the home page
     return res.redirect("/");
   } catch (err) {
-    console.error(err);
+    log.error(err);
     // Show an error message and log the error
     req.session.messages.push({
       type: "danger",

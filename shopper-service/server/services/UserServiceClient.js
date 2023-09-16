@@ -1,5 +1,9 @@
-/** @module UserService */
 const ServiceClient = require("./ServiceClient");
+const config = require("../config");
+
+const log = config.log();
+
+/** @module UserServiceClient */
 
 /**
  * Service class for managing users
@@ -17,7 +21,7 @@ class UserServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }
@@ -36,7 +40,7 @@ class UserServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }
@@ -55,7 +59,7 @@ class UserServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }
@@ -75,7 +79,7 @@ class UserServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }
@@ -95,7 +99,7 @@ class UserServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       return [];
     }
   }
@@ -114,7 +118,7 @@ class UserServiceClient {
       });
       return result;
     } catch (error) {
-      console.error(error);
+      log.error(error);
       throw new Error(error);
     }
   }

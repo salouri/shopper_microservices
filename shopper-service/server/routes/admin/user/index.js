@@ -2,7 +2,9 @@
 const express = require("express");
 const UserServiceClient = require("../../../services/UserServiceClient");
 const { requireAdmin } = require("../../../lib/middlewares");
+const config = require("../../../config");
 
+const log = config.log();
 // Create a new Express router
 const router = express.Router();
 
@@ -77,7 +79,7 @@ router.post("/", async (req, res) => {
       type: "danger",
       text: "There was an error while saving the user!"
     });
-    console.error(err);
+    log.error(err);
     return res.redirect("/admin/user");
   }
 });
@@ -92,7 +94,7 @@ router.get("/delete/:userId", requireAdmin, async (req, res) => {
       type: "danger",
       text: "There was an error while deleting the user!"
     });
-    console.error(err);
+    log.error(err);
     return res.redirect("/admin/user");
   }
 

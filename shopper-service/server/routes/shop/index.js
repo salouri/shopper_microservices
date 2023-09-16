@@ -2,7 +2,9 @@
 const express = require("express");
 const CatalogClient = require("../../services/CatalogServiceClient");
 const CartService = require("../../services/CartServiceClient");
+const config = require("../../config");
 
+const log = config.log();
 // Express router is instantiated
 const router = express.Router();
 
@@ -18,7 +20,7 @@ router.get("/", async (req, res) => {
       type: "danger",
       text: "There was an error loading the shop catalog."
     });
-    console.error(err);
+    log.error(err);
   }
 });
 
@@ -50,7 +52,7 @@ router.get("/tocart/:itemId", async (req, res) => {
       type: "danger",
       text: "There was an error adding the item to your cart"
     });
-    console.error(err);
+    log.error(err);
   }
 
   // Redirect to the shop page

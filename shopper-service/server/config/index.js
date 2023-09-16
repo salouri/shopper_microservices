@@ -1,6 +1,13 @@
 // Import the package.json file to grab the package name and the version
+const bunyan = require("bunyan");
 const pkg = require("../../package.json");
 
+const loggers = {
+  development: () =>
+    bunyan.createLogger({ name: "development", level: "debug" }),
+  production: () => bunyan.createLogger({ name: "production", level: "info" }),
+  test: () => bunyan.createLogger({ name: "test", level: "fatal" })
+};
 // Export a configuration object
 module.exports = {
   // Use the name field from package.json as the application name
@@ -34,5 +41,6 @@ module.exports = {
   queue: {
     url: "amqp://127.0.0.1",
     name: "orders"
-  }
+  },
+  log: loggers[process.env.NODE_ENV || "development"] // log level based on NODE_ENV
 };

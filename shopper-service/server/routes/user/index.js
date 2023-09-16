@@ -1,7 +1,9 @@
 // Required modules and services are imported
 const express = require("express");
 const UserServiceClient = require("../../services/UserServiceClient");
+const config = require("../../config");
 
+const log = config.log();
 // Express router is instantiated
 const router = express.Router();
 
@@ -28,7 +30,7 @@ router.post("/login", async (req, res) => {
     });
     return res.redirect("/");
   } catch (err) {
-    console.error(err);
+    log.error(err);
     req.session.messages.push({
       type: "danger",
       text: "error!"
