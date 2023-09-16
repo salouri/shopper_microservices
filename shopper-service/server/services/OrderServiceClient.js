@@ -1,4 +1,6 @@
+const amqp = require("amqplib");
 const ServiceClient = require("./ServiceClient");
+const config = require("../config");
 
 /** @module OrderServiceClient */
 
@@ -14,15 +16,21 @@ class OrderServiceClient {
    */
   static async create(userId, email, items) {
     try {
-      const result = await ServiceClient.callService("order-service", {
-        method: "post",
-        url: "/orders",
-        data: { userId, email, items }
-      });
-      return result;
+      // const result = await ServiceClient.callService("order-service", {
+      //   method: "post",
+      //   url: "/orders",
+      //   data: { userId, email, items }
+      // });
+      // return result;
+      const connection = await amqp.connect(config.queue.url);
+      const channel = await connection.createChannel();
+      const queueName = config.queue.name;
+      const message = JSON.stringify({ userId, email, items });
+      await channel.assertQueue(queueName, { durable: true });
+      channel.sendToQueue(queueName, Buffer.from(message));
+      console.log(" [x] Sent %s", message);
     } catch (error) {
       console.error(error);
-      return [];
     }
   }
 

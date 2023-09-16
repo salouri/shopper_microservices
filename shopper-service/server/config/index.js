@@ -30,5 +30,9 @@ module.exports = {
   },
   jwt: {
     secret: "my secret key" // must match the secret key in user service
+  },
+  queue: {
+    url: "amqp://127.0.0.1",
+    name: "orders"
   }
 };
