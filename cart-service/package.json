@@ -4,7 +4,7 @@
   "private": true,
   "description": "",
   "scripts": {
-    "start": "node ./bin/start",
+    "start": "NODE_ENV=production node ./bin/start",
     "dev": "nodemon ./bin/start"
   },
   "author": "",

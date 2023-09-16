@@ -4,7 +4,7 @@
   "private": true,
   "author": "Daniel Khan <daniel@khan.io>",
   "scripts": {
-    "start": "node ./server/bin/start",
+    "start": "NODE_ENV=production node ./server/bin/start",
     "dev": "nodemon ./server/bin/start"
   },
   "dependencies": {
