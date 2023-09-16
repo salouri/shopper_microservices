@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 const http = require("http"); // HTTP server functionality
 const axios = require("axios");
-const totalCPUs = require("os").availableParallelism();
 const cluster = require("cluster");
+
+const totalCPUs = require("os").availableParallelism();
 const config = require("../config"); // Configuration settings
 const connectToMongoose = require("../lib/mongooseConnection"); // Function to connect to MongoDB
 const app = require("../app"); // Express application
@@ -13,6 +14,7 @@ const log = config.log();
 
 // Create the HTTP server with the express app
 const server = http.createServer(app);
+const port = process.env.PORT || "3000";
 
 if (cluster.isPrimary) {
   // Fork workers:
@@ -32,7 +34,6 @@ if (cluster.isPrimary) {
   // Import necessary dependencies
 
   // Set the port from the environment variable or use 3000 as default
-  const port = process.env.PORT || "3000";
 
   // Attach a listening handler
   server.on("listening", () => {

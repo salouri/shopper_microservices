@@ -5,6 +5,7 @@ const path = require("path");
 const session = require("express-session");
 const morgan = require("morgan");
 const RedisStore = require("connect-redis").default;
+const helmet = require("helmet");
 const { assignTemplateVariables } = require("./lib/middlewares");
 const routeHandler = require("./routes");
 const config = require("./config");
@@ -23,6 +24,7 @@ app.set("view engine", "pug");
 app.set("views", path.join(__dirname, "views"));
 
 // Set up middleware
+app.use(helmet());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(morgan("tiny")); // Log HTTP requests
