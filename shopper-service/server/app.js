@@ -35,17 +35,31 @@ const redisStore = new RedisStore({
   client: config.redis.client,
   prefix: "shopper_session:"
 });
-
 // Set up session middleware
-app.use(
-  session({
-    store: redisStore,
-    secret: "CHANGE ME!",
-    resave: false,
-    saveUninitialized: false
-  })
-);
 
+if (app.get("env") === "production") {
+  app.set("trust proxy", "loopback");
+  app.use(
+    session({
+      store: redisStore,
+      secret: "another secret for production",
+      resave: true,
+      saveUninitialized: false,
+      name: "sessionId",
+      proxy: true,
+      cookie: { secure: true }
+    })
+  );
+} else {
+  app.use(
+    session({
+      store: redisStore,
+      secret: "CHANGE ME!",
+      resave: false,
+      saveUninitialized: false
+    })
+  );
+}
 // Ignore requests for favicon and robots.txt
 app.get("/favicon.ico", (req, res) => res.status(204));
 app.get("/robots.txt", (req, res) => res.status(204));
