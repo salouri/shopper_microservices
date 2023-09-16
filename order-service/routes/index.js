@@ -1,4 +1,5 @@
 const express = require("express");
+const requireAdmin = require("../lib/requireAdmin");
 const OrderService = require("../lib/OrderService");
 
 const router = express.Router();
@@ -24,7 +25,7 @@ router.get("/orders", async (req, res) => {
   }
 });
 
-router.post("/orders", async (req, res) => {
+router.post("/orders", requireAdmin, async (req, res) => {
   try {
     const order = await OrderService.create(
       req.body.userId,
@@ -42,7 +43,7 @@ router.post("/orders", async (req, res) => {
   }
 });
 
-router.put("/orders/:id", async (req, res) => {
+router.put("/orders/:id", requireAdmin, async (req, res) => {
   try {
     const updatedOrder = await OrderService.setStatus(
       req.params.id,

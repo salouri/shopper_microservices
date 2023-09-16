@@ -11,5 +11,8 @@ module.exports = {
       url: "redis://localhost:7379"
     },
     client: null
+  },
+  jwt: {
+    secret: "my secret key" // must match the key in user service
   }
 };
