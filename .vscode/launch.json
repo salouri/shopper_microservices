@@ -38,6 +38,13 @@
       "name": "Launch Cart Service",
       "skipFiles": ["<node_internals>/**"],
       "program": "${workspaceFolder}/cart-service/bin/start.js"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Order Service",
+      "skipFiles": ["<node_internals>/**"],
+      "program": "${workspaceFolder}/order-service/bin/start.js"
     }
   ]
 }
