@@ -17,6 +17,7 @@
     "@opentelemetry/sdk-node": "^0.39.1",
     "@redis/client": "^1.5.7",
     "axios": "^1.5.0",
+    "compression": "^1.7.4",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^7.1.2",

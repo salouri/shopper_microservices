@@ -1,5 +1,6 @@
 // Import necessary dependencies
 const express = require("express");
+const compression = require("compression");
 const path = require("path");
 const session = require("express-session");
 const morgan = require("morgan");
@@ -11,6 +12,7 @@ const config = require("./config");
 
 // Initialize express application
 const app = express();
+app.use(compression());
 
 // Set up view engine (Pug in this case) and views directory
 app.set("view engine", "pug");

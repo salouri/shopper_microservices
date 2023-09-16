@@ -1,12 +1,12 @@
 const express = require("express");
-
-const app = express();
+const compression = require("compression");
 const morgan = require("morgan");
 const routes = require("./routes");
-const config = require("./config");
 
+const app = express();
+app.use(compression());
 // Middleware to parse JSON request bodies
-app.use(express.json()); 
+app.use(express.json());
 
 // Middleware to log HTTP requests
 app.use(morgan("tiny"));
